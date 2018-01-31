@@ -18,7 +18,7 @@ describe('Thermostat', function(){
       expect(thermostat.temperature).toEqual(21)
     });
     it('will not allow temperature to increase above 25 degrees in powersaving mode', function(){
-      expect(function() {thermostat.increaseTemp(6)}).toThrow("Temperate can not be increased above 25 degrees in powersaving mode")
+      expect(function() {thermostat.increaseTemp(6)}).toThrow("Temperate can not be increased above 25 degrees in current mode")
     })
   });
 
@@ -32,4 +32,21 @@ describe('Thermostat', function(){
       expect(function() {thermostat.decreaseTemp(1)}).toThrow("Temperature can not be reduced below 10 degrees")
     })
   });
+
+  describe('powersaving', function() {
+    it('powersaving mode can be turned on', function(){
+      thermostat.powerSavingOn()
+      expect(thermostat.powerSaving).toBe(true)
+    });
+
+    it('powersaving mode can be turned off', function(){
+      thermostat.powerSavingOff()
+      expect(thermostat.powerSaving).toBe(false)
+    });
+
+    it('powersaving mode is on by default', function(){
+      expect(thermostat.powerSaving).toBe(true)
+    })
+  });
+
 });
