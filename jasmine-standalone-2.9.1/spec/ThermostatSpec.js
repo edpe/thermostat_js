@@ -48,5 +48,26 @@ describe('Thermostat', function(){
       expect(thermostat.powerSaving).toBe(true)
     })
   });
-
-});
+  describe('reset',function(){
+    it('it resets the temperature to 20 degrees',function(){
+      thermostat.decreaseTemp(10)
+      thermostat.reset()
+      expect(thermostat.temperature).toEqual(20)
+    })
+  })
+  describe('report energy usage',function(){
+    it('can return report medium energy usage',function(){
+      console.log(thermostat.temperature)
+      expect(thermostat.currentUsage()).toEqual("medium-usage")
+    })
+    it('can return report low energy usage',function(){
+      thermostat.decreaseTemp(10)
+      expect(thermostat.currentUsage()).toEqual("low-usage")
+    })
+    it('can return report high energy usage',function(){
+      thermostat.powerSavingOff()
+      thermostat.increaseTemp(10)
+      expect(thermostat.currentUsage()).toEqual("high-usage")
+    })
+  })
+})

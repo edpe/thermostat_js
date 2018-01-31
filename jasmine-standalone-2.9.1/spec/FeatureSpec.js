@@ -26,4 +26,19 @@ describe('Feature Test:', function(){
     thermostat.powerSavingOff()
     expect(function() {thermostat.increaseTemp(15)}).toThrow("Temperate can not be increased above 32 degrees in current mode")
   })
+  it('can reset the temperate back to default temperature 20 degrees',function(){
+    thermostat.increaseTemp(5)
+    thermostat.decreaseTemp(10)
+    thermostat.reset()
+    expect(thermostat.temperature).toEqual(20)
+  })
+
+  it('can return current energy usage',function(){
+    expect(thermostat.currentUsage()).toEqual("medium-usage")
+    thermostat.decreaseTemp(10)
+    expect(thermostat.currentUsage()).toEqual("low-usage")
+    thermostat.powerSavingOff()
+    thermostat.increaseTemp(16)
+    expect(thermostat.currentUsage()).toEqual("high-usage")
+  })
 });

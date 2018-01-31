@@ -1,5 +1,6 @@
 function Thermostat (){
-  this.temperature = 20
+  this.DEFAULT_TEMP = 20
+  this.temperature = this.DEFAULT_TEMP
   this.MINTEMP = 10
   this.PSMAXTEMP = 25
   this.MAXTEMP = 32
@@ -35,3 +36,17 @@ function Thermostat (){
   Thermostat.prototype._maxTemp = function() {
     return this.powerSaving ? this.PSMAXTEMP : this.MAXTEMP
   };
+
+  Thermostat.prototype.reset = function(){
+    this.temperature = this.DEFAULT_TEMP
+  }
+
+  Thermostat.prototype.currentUsage = function() {
+    if (this.temperature > 25){
+      return "high-usage"
+    } else if (this.temperature > 18) {
+      return "medium-usage"
+    } else {
+      return "low-usage"
+    }
+  }
